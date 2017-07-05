@@ -92,17 +92,18 @@ let unfold_wrap_mapper (lang : Ppx_common.lang) (rw : rewrite_wrap) =
               args
             ) } ->
 
+        let m = mapper.expr mapper in
         begin match isw lid, List.map snd args with
-        | Some "return", [e] -> rw.return e
-        | Some "fmap", [e1; e2] -> rw.fmap e1 e2
-        | Some "nil", [e] -> rw.nil e
-        | Some "singleton", [e] -> rw.singleton e
-        | Some "cons", [e1; e2] -> rw.cons e1 e2
-        | Some "append", [e1; e2] -> rw.append e1 e2
-        | Some "map", [e1; e2] -> rw.map e1 e2
+        | Some "return", [e] -> rw.return (m e)
+        | Some "fmap", [e1; e2] -> rw.fmap (m e1) (m e2)
+        | Some "nil", [e] -> rw.nil (m e)
+        | Some "singleton", [e] -> rw.singleton (m e)
+        | Some "cons", [e1; e2] -> rw.cons (m e1) (m e2)
+        | Some "append", [e1; e2] -> rw.append (m e1) (m e2)
+        | Some "map", [e1; e2] -> rw.map (m e1) (m e2)
         | Some _, _ -> failwith "Unhandled or partially applied wrapping function"
-        | None, _ -> expr
-        end |> default_mapper.expr mapper
+        | None, _ -> default_mapper.expr mapper expr
+        end
 
       | other -> default_mapper.expr mapper other }
 
