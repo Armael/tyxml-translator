@@ -39,10 +39,6 @@ let () =
     |> Dom_html.CoerceTo.textarea |> optget
   in
   let output_div = Dom_html.getElementById "output" in
-  let btn =
-    Dom_html.getElementById "button_go"
-    |> Dom_html.CoerceTo.button |> optget
-  in
   Lwt.async (fun _ ->
     Lwt_js_events.domContentLoaded () >>= fun _ ->
     output_div##appendChild (To_dom.of_node output_pre) |> ignore;
@@ -50,8 +46,8 @@ let () =
   );
 
   Lwt.async (fun _ ->
-    Lwt_js_events.seq_loop
-      Lwt_js_events.click btn (fun _ _ ->
+    Lwt_js_events.limited_loop ~elapsed_time:0.5
+      Lwt_js_events.input input_box (fun _ _ ->
         let input_text = Js.to_string input_box##.value in
         set_output_text [process input_text];
         return ()
