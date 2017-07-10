@@ -1,2 +1,4 @@
 _build
 static/tyxml_translator_web.js
+*.native
+*.byte
