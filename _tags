@@ -1,2 +1,2 @@
-true: package(compiler-libs,tyxml.ppx.internal,js_of_ocaml,js_of_ocaml.ppx,js_of_ocaml.tyxml,lwt)
+true: package(compiler-libs,tyxml.ppx.internal,js_of_ocaml,js_of_ocaml-ppx,js_of_ocaml-tyxml,js_of_ocaml-lwt,lwt)
 <src>: include
