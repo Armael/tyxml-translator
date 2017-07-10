@@ -1,0 +1,22 @@
+opam-version: "1.2"
+maintainer: "armael@isomorphis.me"
+author: "armael@isomorphis.me"
+homepage: "https://github.com/Armael/tyxml-translator"
+bug-reports: "https://github.com/Armael/tyxml-translator/issues"
+dev-repo: "https://github.com/Armael/tyxml-translator.git"
+build: [
+  ["./configure" "--bin-dir" bin]
+  [make]
+]
+install: [make "install"]
+remove: [
+  ["./configure" "--bin-dir" bin]
+  [make "uninstall"]
+]
+depends: [
+  "ocamlbuild" {build}
+  "js_of_ocaml-lwt"
+  "js_of_ocaml-tyxml"
+  "js_of_ocaml-ocamlbuild"
+  "tyxml-ppx"
+]
