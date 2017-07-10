@@ -1,0 +1,1129 @@
+/* grids
+-------------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == reset */
+/* ----------------------------------------------------------- */
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+}
+img,
+table,
+td,
+blockquote,
+code,
+pre,
+textarea,
+input,
+video {
+  max-width: 100%;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
+img:not([src$=".svg"]) {
+  height: auto;
+}
+/* fix for IE */
+img[src$=".svg"] {
+  width: 100%;
+}
+/* fix input no style on Safari */
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+/* ----------------------------------------------------------- */
+/* == typography */
+/* ----------------------------------------------------------- */
+html {
+  font-size: 62.5%;
+  /* IE9-11 calculation fix */
+  font-size: calc(1em * .625);
+}
+body {
+  font-size: 1.4em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+p,
+ul,
+ol,
+dl,
+blockquote,
+pre,
+td,
+th,
+label,
+textarea,
+caption {
+  margin: 0 0 1.5em 0;
+}
+/* ----------------------------------------------------------- */
+/* == helpers */
+/* ----------------------------------------------------------- */
+/* screen readers
+-------------------------------------------------------------- */
+/* Hide only visually, but have it available for screen readers (from HTML5 Boilerplate) */
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
+}
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  position: static;
+  overflow: visible;
+  clip: auto;
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+/* states
+-------------------------------------------------------------- */
+.is-disabled {
+  cursor: not-allowed;
+}
+/* ----------------------------------------------------------- */
+/* == layout */
+/* ----------------------------------------------------------- */
+/* BFC to the rescue */
+.mod {
+  overflow: hidden;
+}
+.clear,
+.line,
+.row {
+  clear: both;
+}
+/* blocks that must contain floats */
+.clearfix:after,
+.line:after,
+.mod:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.inbl {
+  display: inline-block;
+}
+/* table layout
+-------------------------------------------------------------- */
+.row {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.row > *,
+.col {
+  display: table-cell;
+}
+[class*="grid-"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+[class*="grid-"] > * {
+  display: block;
+  /* IE fix */
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+/* vertical align
+-------------------------------------------------------------- */
+[class*="grid-top"] {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+[class*="grid-bottom"] {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+[class*="grid-center"] {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+/* helpers
+-------------------------------------------------------------- */
+[class*="grid-"].grid-noMargin > * {
+  margin-bottom: 0;
+}
+/* ----------------------------------------------------------- */
+/* == rwd */
+/* ----------------------------------------------------------- */
+/* responsive iframe http://www.smashingmagazine.com/2014/02/27/making-embedded-content-work-in-responsive-design/ */
+.responsive-iframe {
+  position: relative;
+  overflow: hidden;
+  padding-top: 3rem;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+.responsive-iframe iframe,
+.responsive-iframe object,
+.responsive-iframe embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* utilities
+-------------------------------------------------------------- */
+.hidden {
+  display: none;
+}
+@media (min-width: 1281px) {
+  [class*="-l+"][class*="hidden-"]:not([class*="up"]) {
+    display: none !important;
+  }
+}
+@media (min-width: 961px) and (max-width: 1280px) {
+  [class*="-l"][class*="hidden-"]:not([class*="up"]) {
+    display: none !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 960px) {
+  [class*="-m"][class*="hidden-"]:not([class*="up"]) {
+    display: none !important;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  [class*="-s"][class*="hidden-"]:not([class*="up"]) {
+    display: none !important;
+  }
+}
+@media (max-width: 480px) {
+  [class*="-xs"][class*="hidden-"]:not([class*="up"]) {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) {
+  .hidden-s-up {
+    display: none !important;
+  }
+}
+@media (min-width: 480px) {
+  .hidden-xs-up {
+    display: none !important;
+  }
+}
+/* xsmall
+-------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .mod,
+  .col {
+    display: block !important;
+    float: none !important;
+    width: auto !important;
+  }
+}
+/* ----------------------------------------------------------- */
+/* == debug */
+/* ----------------------------------------------------------- */
+/*
+ * Generates a random color
+ *
+ */
+/*
+ * Easily debug an element
+ *
+ */
+/*
+ * Display grid for vertical rhythm
+ *
+ */
+.debug-rythm {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.1em, #ba9b9a), color-stop(0.1em, transparent)) !important;
+  background: linear-gradient(to bottom, #ba9b9a 0.1em, transparent 0.1em) !important;
+  background-size: 100% 1.5em !important;
+}
+/* ----------------------------------------------------------- */
+/* == alignment */
+/* ----------------------------------------------------------- */
+/* block
+-------------------------------------------------------------- */
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.center {
+  margin-right: auto;
+  margin-left: auto;
+}
+/* text/inline
+-------------------------------------------------------------- */
+.txtright {
+  text-align: right;
+}
+.txtcenter {
+  text-align: center;
+}
+.txtleft {
+  text-align: left;
+}
+.vtop {
+  vertical-align: top;
+}
+.vbottom {
+  vertical-align: bottom;
+}
+.vmiddle {
+  vertical-align: middle;
+}
+/* ----------------------------------------------------------- */
+/* == colors */
+/* ----------------------------------------------------------- */
+.color-primary {
+  color: #3498db;
+}
+.color-secondary {
+  color: #1abc9c;
+}
+/* ----------------------------------------------------------- */
+/* == spacings */
+/* ----------------------------------------------------------- */
+.ma0 {
+  margin: 0;
+}
+.pa0 {
+  padding: 0;
+}
+.ma1 {
+  margin: 1rem;
+}
+.ma2 {
+  margin: 2rem;
+}
+.ma3 {
+  margin: 3rem;
+}
+.pa1 {
+  padding: 1rem;
+}
+.pa2 {
+  padding: 2rem;
+}
+.pa3 {
+  padding: 3rem;
+}
+.mt0 {
+  margin-top: 0;
+}
+.mt1 {
+  margin-top: 1rem;
+}
+.mt2 {
+  margin-top: 2rem;
+}
+.mt3 {
+  margin-top: 3rem;
+}
+.mt4 {
+  margin-top: 4rem;
+}
+.mt5 {
+  margin-top: 5rem;
+}
+.mr0 {
+  margin-right: 0;
+}
+.mr1 {
+  margin-right: 1rem;
+}
+.mr2 {
+  margin-right: 2rem;
+}
+.mr3 {
+  margin-right: 3rem;
+}
+.mb0 {
+  margin-bottom: 0;
+}
+.mb1 {
+  margin-bottom: 1rem;
+}
+.mb2 {
+  margin-bottom: 2rem;
+}
+.mb3 {
+  margin-bottom: 3rem;
+}
+.mb4 {
+  margin-bottom: 4rem;
+}
+.mb5 {
+  margin-bottom: 5rem;
+}
+.ml0 {
+  margin-left: 0;
+}
+.ml1 {
+  margin-left: 1rem;
+}
+.ml2 {
+  margin-left: 2rem;
+}
+.ml3 {
+  margin-left: 3rem;
+}
+.pt0 {
+  padding-top: 0;
+}
+.pt1 {
+  padding-top: 1rem;
+}
+.pt2 {
+  padding-top: 2rem;
+}
+.pt3 {
+  padding-top: 3rem;
+}
+.pr0 {
+  padding-right: 0;
+}
+.pr1 {
+  padding-right: 1rem;
+}
+.pr2 {
+  padding-right: 2rem;
+}
+.pr3 {
+  padding-right: 3rem;
+}
+.pb0 {
+  padding-bottom: 0;
+}
+.pb1 {
+  padding-bottom: 1rem;
+}
+.pb2 {
+  padding-bottom: 2rem;
+}
+.pb3 {
+  padding-bottom: 3rem;
+}
+.pl0 {
+  padding-left: 0;
+}
+.pl1 {
+  padding-left: 1rem;
+}
+.pl2 {
+  padding-left: 2rem;
+}
+.pl3 {
+  padding-left: 3rem;
+}
+/* ----------------------------------------------------------- */
+/* == text */
+/* ----------------------------------------------------------- */
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+/* font size
+-------------------------------------------------------------- */
+.txtsmaller {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 1rem;
+  line-height: 2.1;
+  margin-bottom: 2.1em;
+}
+.txtsmall {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 1.2rem;
+  line-height: 1.75;
+  margin-bottom: 1.75em;
+}
+.txtbig {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 1.6rem;
+  line-height: 1.3125;
+  margin-bottom: 1.3125em;
+}
+.txtbigger {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 1.8rem;
+  line-height: 1.16666667;
+  margin-bottom: 1.16666667em;
+}
+/* transformations
+-------------------------------------------------------------- */
+.uppercase {
+  text-transform: uppercase;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.lowercase {
+  text-transform: lowercase;
+}
+/* ----------------------------------------------------------- */
+/* == width */
+/* ----------------------------------------------------------- */
+.w10 {
+  width: 10%;
+}
+.w20 {
+  width: 20%;
+}
+.w25 {
+  width: 25%;
+}
+.w30 {
+  width: 30%;
+}
+.w33 {
+  width: 33.3333%;
+}
+.w40 {
+  width: 40%;
+}
+.w50 {
+  width: 50%;
+}
+.w60 {
+  width: 60%;
+}
+.w66 {
+  width: 66.6666%;
+}
+.w70 {
+  width: 70%;
+}
+.w75 {
+  width: 75%;
+}
+.w80 {
+  width: 80%;
+}
+.w90 {
+  width: 90%;
+}
+.w100 {
+  width: 100%;
+}
+/**
+ * Form Module
+ * Namespace : .form
+ */
+/* ----------------------------------------------------------- */
+/* == configuration */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == module */
+/* ----------------------------------------------------------- */
+/* placeholders
+-------------------------------------------------------------- */
+input::-webkit-input-placeholder {
+  color: #c4c1be;
+}
+input:-moz-placeholder {
+  color: #c4c1be;
+}
+textarea::-webkit-input-placeholder {
+  color: #c4c1be;
+}
+textarea:-moz-placeholder {
+  color: #c4c1be;
+}
+/* block form
+-------------------------------------------------------------- */
+label,
+.label {
+  display: block;
+  margin-top: 1.3em;
+  margin-bottom: .8em;
+  vertical-align: middle;
+  cursor: pointer;
+}
+/* inline form
+-------------------------------------------------------------- */
+.f-inline label,
+.f-inline .label {
+  display: inline-block;
+  margin: 0 1rem;
+}
+.f-inline {
+  display: inline-block;
+}
+.f-inline input,
+.f-inline .btn {
+  height: 4rem;
+}
+.f-inline .btn {
+  vertical-align: middle;
+}
+/* basics style
+-------------------------------------------------------------- */
+fieldset {
+  margin: 2.5rem 0;
+  padding: 1em;
+  border: .1rem solid #d8d8d8;
+}
+input,
+select,
+label,
+.label {
+  vertical-align: middle;
+}
+select {
+  margin: 0;
+  border: .1rem solid #ccc;
+  background-color: #fff;
+}
+textarea {
+  padding: .4em;
+  min-width: 32rem;
+  min-height: 8em;
+  vertical-align: top;
+  resize: vertical;
+}
+input {
+  padding: .8em;
+  max-width: 32rem;
+  width: 100%;
+  border: 0.1rem solid #d8d8d8;
+  border-radius: 0.4rem;
+  background: #fff;
+  -webkit-box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.08);
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.08);
+}
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+  display: inline-block;
+  margin-right: 1rem;
+  vertical-align: baseline;
+}
+input[type="radio"],
+input[type="checkbox"] {
+  padding: 0;
+  width: inherit;
+}
+/* autogrid
+-------------------------------------------------------------- */
+[class^="f-grid"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+[class^="f-grid"] > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-left: 2rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 0px;
+  flex: 1 0 0;
+}
+[class^="f-grid"] > *:first-child {
+  margin-left: 0;
+}
+[class^="f-grid"] input {
+  max-width: 100%;
+}
+/* size
+-------------------------------------------------------------- */
+.f-size-1 {
+  max-width: 10rem;
+}
+.f-size-2 {
+  max-width: 20rem;
+}
+.f-size-3 {
+  max-width: 30rem;
+}
+.f-size-4 {
+  max-width: 40rem;
+}
+.f-size-5 {
+  max-width: 50rem;
+}
+.f-size-full {
+  max-width: 100%;
+}
+/* errors
+-------------------------------------------------------------- */
+.f-required {
+  color: #ff3860;
+  font-weight: bold;
+}
+.f-error input {
+  margin-bottom: .8rem;
+  border: 0.1rem solid #ff3860;
+}
+.f-error-message {
+  color: #ff3860;
+}
+/**
+* Button Module
+* namespace : .btn
+*/
+/* ----------------------------------------------------------- */
+/* == configuration */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == module */
+/* ----------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: .8em 1.6em;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: #3498db;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #fff;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none !important;
+  line-height: normal;
+  cursor: pointer;
+  -webkit-transition: background-color 0.4s;
+  transition: background-color 0.4s;
+}
+/* colors
+-------------------------------------------------------------- */
+.btn--primary,
+.btn--primary:link,
+.btn--primary:visited {
+  background-color: #3498db;
+  color: #fff;
+}
+.btn--primary:hover,
+.btn--primary:active,
+.btn--primary:focus {
+  background-color: #258cd1;
+}
+.btn--secondary,
+.btn--secondary:link,
+.btn--secondary:visited {
+  background-color: #1abc9c;
+  color: #fff;
+}
+.btn--secondary:hover,
+.btn--secondary:active,
+.btn--secondary:focus {
+  background-color: #17a689;
+}
+.btn--danger,
+.btn--danger:link,
+.btn--danger:visited {
+  background-color: #c53a3a;
+  color: #fff;
+}
+.btn--danger:hover,
+.btn--danger:active,
+.btn--danger:focus {
+  background-color: #b13434;
+}
+/* size
+-------------------------------------------------------------- */
+.btn--big {
+  font-size: 18;
+}
+/**
+ * Pagination Module
+ * namespace : .pagination
+ */
+/* ----------------------------------------------------------- */
+/* == configuration */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == module */
+/* ----------------------------------------------------------- */
+.pagination {
+  display: inline-block;
+  margin: 2rem 0;
+  border-radius: .4rem;
+}
+.pagination,
+.pagination li {
+  margin: 0;
+  padding: 0;
+}
+.pagination li {
+  display: inline-block;
+  margin: 0 .3rem 1em;
+  list-style-type: none;
+}
+.pagination li a,
+.pagination li > span {
+  padding: .3em .6em;
+  border: 0.1rem solid grey;
+  border-radius: 0.2rem;
+}
+.pagination li a:hover {
+  color: #1abc9c;
+}
+.pagination li.current a {
+  background-color: #3498db;
+  color: #fff;
+}
+/**
+ * Table Module
+ * namespace : .table
+ */
+/* ----------------------------------------------------------- */
+/* == configuration */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == module */
+/* ----------------------------------------------------------- */
+.table {
+  max-width: 100%;
+  width: 100%;
+  border: .1rem solid #cbcbcb;
+  border-spacing: 0;
+  border-collapse: collapse /* remove spacing between table cells */;
+  table-layout: fixed /* http://css-tricks.com/fixing-tables-long-strings */;
+}
+.table caption {
+  padding: 1em 0;
+  color: #000;
+  text-align: center;
+  font: italic 85%/1 arial, sans-serif;
+}
+.table td,
+.table th {
+  overflow: hidden;
+  margin: 0;
+  padding: .5em 1em;
+  border-width: 0 0 0 .1rem;
+  border-left: .1rem solid #cbcbcb;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  font-size: inherit;
+}
+.table td:first-child,
+.table th:first-child {
+  border-left-width: 0;
+}
+.table thead {
+  background: #e0e0e0;
+  color: #000;
+  vertical-align: bottom;
+  text-align: left;
+}
+/**
+ * Tooltip Module
+ * namespace : .tooltip
+ */
+/* ----------------------------------------------------------- */
+/* == configuration */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == module */
+/* ----------------------------------------------------------- */
+.tooltip {
+  position: relative;
+  cursor: help;
+}
+.tooltip:after {
+  font-family: helvetica, arial, sans-serif;
+}
+.tooltip:hover:after {
+  position: absolute;
+  bottom: 1.35em;
+  left: 1em;
+  padding: .5em 1em;
+  border-radius: 0.5em;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  content: attr(data-tooltip);
+  white-space: nowrap;
+}
+.tooltip:hover:before {
+  position: absolute;
+  bottom: 1em;
+  left: 2em;
+  display: block;
+  border: solid;
+  border-width: .4em .4em 0 .4em;
+  border-color: rgba(0, 0, 0, 0.8) transparent;
+  content: "";
+}
+/**
+ * Notification module
+ * Namespace : .notif
+ */
+/* ----------------------------------------------------------- */
+/* == configuration */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == module */
+/* ----------------------------------------------------------- */
+.notif {
+  padding: 1em;
+  border-radius: 4px;
+}
+.notif--success {
+  background-color: #00d1b2;
+  color: #fff;
+}
+.notif--warning {
+  background-color: #ffdd57;
+  color: #fff;
+}
+.notif--error {
+  background-color: #ff3860;
+  color: #fff;
+}
+/* ----------------------------------------------------------- */
+/* == custom fonts */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == grids */
+/* ----------------------------------------------------------- */
+/**
+ * Some grid examples
+ */
+.grid-1 {
+  margin-bottom: -2rem;
+  margin-left: 0;
+}
+.grid-1 > *:nth-child(n) {
+  margin-bottom: 2rem;
+  margin-left: 0;
+  width: 100%;
+}
+.grid-2 {
+  margin-bottom: -2rem;
+  /* avoid unwanted margin on last line */
+  margin-left: -2rem;
+}
+.grid-2 > *:nth-child(n) {
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+  width: calc(100% * 1 / 2 - 2rem - .01px);
+}
+.grid-3 {
+  margin-bottom: -2rem;
+  /* avoid unwanted margin on last line */
+  margin-left: -2rem;
+}
+.grid-3 > *:nth-child(n) {
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+  width: calc(100% * 1 / 3 - 2rem - .01px);
+}
+.grid-4 {
+  margin-bottom: -2rem;
+  /* avoid unwanted margin on last line */
+  margin-left: -2rem;
+}
+.grid-4 > *:nth-child(n) {
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+  width: calc(100% * 1 / 4 - 2rem - .01px);
+}
+.grid-2-noGutter {
+  margin-bottom: 0;
+}
+.grid-2-noGutter > *:nth-child(n) {
+  margin-bottom: 0;
+  width: calc(100% * 1 / 2 - .01px);
+}
+.grid-1-3 > *:nth-child(odd) {
+  width: calc(25% - 1rem - .01px);
+}
+.grid-1-3 > *:nth-child(even) {
+  margin-left: 2rem;
+  width: calc(75% - 1rem - .01px);
+}
+@media (max-width: 480px) {
+  .grid-1-xs {
+    margin-bottom: -2rem;
+    margin-left: 0;
+  }
+  .grid-1-xs > *:nth-child(n) {
+    margin-bottom: 2rem;
+    margin-left: 0;
+    width: 100%;
+  }
+  .grid-2-xs {
+    margin-bottom: -2rem;
+    /* avoid unwanted margin on last line */
+    margin-left: -2rem;
+  }
+  .grid-2-xs > *:nth-child(n) {
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    width: calc(100% * 1 / 2 - 2rem - .01px);
+  }
+}
+/* ----------------------------------------------------------- */
+/* == main */
+/* ----------------------------------------------------------- */
+body {
+  background-color: #fff;
+  color: #000;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 1rem;
+  max-width: 102.4rem;
+}
+/* titles
+-------------------------------------------------------------- */
+h1 {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 5rem;
+  line-height: 1.26;
+  margin-bottom: 0.42em;
+}
+h2 {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 2.2rem;
+  line-height: 1.90909091;
+  margin-bottom: 0.95454545em;
+}
+h3 {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 1.8rem;
+  line-height: 1.16666667;
+  margin-bottom: 1.16666667em;
+}
+h4 {
+  /*font-size: unit(@font-size / @bf, em);*/
+  font-size: 1.6rem;
+  line-height: 1.3125;
+  margin-bottom: 1.3125em;
+}
+/* links
+-------------------------------------------------------------- */
+a {
+  color: #3498db;
+}
+a:hover,
+a:visited,
+a:focus {
+  color: #5faee3;
+}
+/* lists
+-------------------------------------------------------------- */
+ul {
+  padding-left: 2rem;
+  list-style-type: circle;
+}
+/* divers
+-------------------------------------------------------------- */
+hr {
+  display: block;
+  margin: 1em 0;
+  padding: 0;
+  height: .1rem;
+  border: 0;
+  border-top: .1rem solid #ccc;
+}
+/* ----------------------------------------------------------- */
+/* == header */
+/* ----------------------------------------------------------- */
+.header ul,
+.header li {
+  margin: 0;
+  padding: 0;
+}
+.header a,
+.header a:visited,
+.header a:hover {
+  color: #3498db;
+}
+/* ----------------------------------------------------------- */
+/* == navigation */
+/* ----------------------------------------------------------- */
+.navigation ul {
+  padding-left: 0;
+}
+.navigation li {
+  display: inline-block;
+  margin: 1rem 0;
+}
+.navigation li a {
+  display: inline-block;
+  padding: 1rem .5rem;
+}
+/* ----------------------------------------------------------- */
+/* == content */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == footer */
+/* ----------------------------------------------------------- */
+.footer {
+  padding: 2rem 0;
+}
+.footer ul,
+.footer li {
+  margin: 0;
+  padding: 0;
+}
+.footer a,
+.footer a:hover,
+.footer a:visited {
+  color: #3498db;
+}
+/* ----------------------------------------------------------- */
+/* == rwd -> large */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == rwd -> medium */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == rwd -> small */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == rwd -> xsmall */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == rwd */
+/* ----------------------------------------------------------- */
