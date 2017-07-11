@@ -21,20 +21,27 @@
 /* == module */
 /* ----------------------------------------------------------- */
 
-.btn {
+.btn,
+.btn:visited {
   display: inline-block;
-  padding: .8em 1.6em;
-  border: none;
+  padding: .6em 1em;
+  border: .1rem solid @btn-primary;
   border-radius: @btn-radius;
-  background-color: @btn-primary;
+  background: none;
   box-shadow: none;
-  color: #fff;
+  color: @btn-primary;
   vertical-align: middle;
   text-align: center;
   text-decoration: none !important;
   line-height: normal;
   cursor: pointer;
-  transition: background-color .4s;
+  transition: background-color .4s, color .4s;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: @btn-primary;
+  color: #fff;
 }
 
 /* colors
@@ -43,14 +50,16 @@
 .btn--primary,
 .btn--primary:link,
 .btn--primary:visited {
-  background-color: @btn-primary;
-  color: #fff;
+  border: .1rem solid @btn-primary;
+  background: none;
+  color: @btn-primary;
 }
 
 .btn--primary:hover,
 .btn--primary:active,
 .btn--primary:focus {
-  background-color: darken(@btn-primary, @btn-hover);
+  background-color: @btn-primary;
+  color: #fff;
 }
 
 .btn--secondary,
@@ -85,4 +94,9 @@
 
 .btn--big {
   font-size: @base-font + 4;
+}
+
+.btn--small {
+  padding: .2rem 1rem;
+  font-size: @base-font - 2;
 }

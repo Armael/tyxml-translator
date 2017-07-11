@@ -3,17 +3,42 @@
 /* ----------------------------------------------------------- */
 
 .header {
-
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  background: #fff;
+  box-shadow: 0 2px 15px 0 #f1f1f1;
 }
 
-.header ul,
-.header li {
+/* Titles
+-------------------------------------------------------------- */
+
+.header__title {
+  align-self: stretch;
   margin: 0;
-  padding: 0;
+  margin-right: 4rem;
+  padding: 2.5rem 0;
+  line-height: 2.3rem;
+  padding-right: 4rem;
+  border-right: .1rem solid #e3e3e3;
+  color: @color-primary;
+  font-weight: bold;
+  font-size: 1.8rem;
 }
 
-.header a,
-.header a:visited,
-.header a:hover {
-  color: @color-link;
+.header__subTitle {
+  margin: 0;
+  color: #747474;
+  font-weight: normal;
+  font-size: 1.3rem;
+  line-height: 2.3rem;
+}
+
+/* Nav
+-------------------------------------------------------------- */
+
+.header__nav {
+  margin-left: auto;
 }
