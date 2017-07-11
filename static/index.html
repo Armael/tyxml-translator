@@ -3,13 +3,32 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <title>Tyxml-translator</title>
     </head>
     <body>
-        <textarea id="input"></textarea>
-        <div id="output"></div>
-
+        <header class="header">
+            <h1 class="header__title">Tyxml Translator</h1>
+            <h2 class="header__subTitle">Convert your html/svg to typed OCaml Tyxml</h2>
+            <div class="header__nav">
+                <a class="btn btn--primary btn--small" href="">Fork me on Github</a>
+            </div>
+        </header>
+        <main class="main">
+            <div class="main__container container">
+                <div class="main__grid">
+                    <div class="main__splitItem">
+                        <textarea class="translateInput__input" id="input" autofocus placeholder="Write your code here…"></textarea>
+                    </div>
+                    <div class="main__splitItem">
+                        <code class="translateOutput__code" id="output"></code>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer pa1 txtcenter">
+            Just write and it will automatically convert your html 👌
+        </footer>
         <script type="text/javascript" src="tyxml_translator_web.js"></script>
     </body>
 </html>

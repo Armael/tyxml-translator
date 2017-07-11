@@ -1,0 +1,32 @@
+/* ----------------------------------------------------------- */
+/* == Layout */
+/* ----------------------------------------------------------- */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.main__container {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.main__grid {
+  display: flex;
+  width: ~'calc(100% + 1.5rem)';
+}
+
+.main__splitItem {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 50%;
+}
+
+.main__splitItem:first-child {
+  margin-right: 1.5rem;
+  border-right: .1rem solid #e3e3e3;
+}
