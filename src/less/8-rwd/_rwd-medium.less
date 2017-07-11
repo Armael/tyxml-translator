@@ -3,5 +3,28 @@
 /* ----------------------------------------------------------- */
 
 @media (max-width: @medium) {
+  /* Input / Output layout
+  -------------------------------------------------------------- */
 
+  .main__grid {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .main__splitItem {
+    width: 100%;
+  }
+
+  .main__splitItem:first-child {
+    padding-bottom: 1.5rem;
+    border-right: none;
+  }
+
+  .translateInput__input {
+    width: 100%;
+  }
+
+  .translateOutput__code pre:not(:empty) {
+    padding: 1rem;
+  }
 }

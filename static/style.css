@@ -1221,6 +1221,7 @@ hr {
   -ms-flex-positive: 1;
   flex-grow: 1;
   margin: 0;
+  min-width: auto;
   width: calc(100% - 1.5rem);
   outline: none;
   border: none;
@@ -1248,9 +1249,71 @@ hr {
 /* ----------------------------------------------------------- */
 /* == rwd -> medium */
 /* ----------------------------------------------------------- */
+@media (max-width: 960px) {
+  /* Input / Output layout
+  -------------------------------------------------------------- */
+  .main__grid {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+  }
+  .main__splitItem {
+    width: 100%;
+  }
+  .main__splitItem:first-child {
+    padding-bottom: 1.5rem;
+    border-right: none;
+  }
+  .translateInput__input {
+    width: 100%;
+  }
+  .translateOutput__code pre:not(:empty) {
+    padding: 1rem;
+  }
+}
 /* ----------------------------------------------------------- */
 /* == rwd -> small */
 /* ----------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* header
+  -------------------------------------------------------------- */
+  .header__nav {
+    display: none;
+  }
+  .header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    padding: 0 1.5rem;
+  }
+  .header__title {
+    margin: 0;
+    padding: 0;
+    padding-top: 1rem;
+    padding-bottom: 0;
+    border-right: none;
+  }
+  .header__subTitle {
+    padding-bottom: 1rem;
+  }
+  /* Input / Output layout
+  -------------------------------------------------------------- */
+  .translateInput__input,
+  .translateOutput__code {
+    min-height: 30rem;
+  }
+  /* Footer
+  -------------------------------------------------------------- */
+  .footer {
+    display: none;
+  }
+}
 /* ----------------------------------------------------------- */
 /* == rwd -> xsmall */
 /* ----------------------------------------------------------- */
