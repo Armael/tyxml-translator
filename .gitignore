@@ -1,8 +1,8 @@
-#Ocaml
+# OCaml
 _build
 static/tyxml_translator_web.js
 *.native
 *.byte
 
-#Frontend
+# Frontend
 node_modules/
