@@ -14,9 +14,9 @@ clean:
 gh-pages: static/tyxml_translator_web.js
 	cp -r static _static
 	git checkout gh-pages
-	find . -not -path '*/\.*' -maxdepth 1 -type f -exec rm "{}" \;
+	find . -maxdepth 1 -not -path '*/\.*' -type f -exec rm "{}" \;
 	mv _static/* .
 	rmdir _static
-	git add --all --ignore-errors *
+	git add --all *
 
 .PHONY: all clean gh-pages
