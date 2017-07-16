@@ -31,6 +31,7 @@ let process (s : string) =
       Translator.ocaml_of_html !lang s
       |> Translator.unfold_wrap !lang Translator.nowrap
       |> Translator.unqualify !lang
+      |> Translator.cleanup_whitespace
     in
     Format.fprintf Format.std_formatter
       "let open Tyxml.Expr in@.%a@.%!"

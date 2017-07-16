@@ -149,3 +149,166 @@ let unqualify (lang : Ppx_common.lang) : expression -> expression =
 (* (\* Turn [e] into [let open ... in e] *\) *)
 (* let add_local_open (lang : Ppx_common.lang) (e : expression) : expression = *)
 (*   Exp.open_ Fresh (Location.mknoloc (Longident.Lident (lang_mod lang))) e *)
+
+(******************************************************************************)
+
+(* Best-effort cleanup of non-significant whitespace.
+
+   when not in a <pre>:
+   - if first child is a text node, trim whitespace at the beginning, or remove
+     it if it is only whitespace
+   - symmetrically for the last child
+   - for other text nodes children, merge consecutive whitespace characters into
+     a single ' '
+*)
+
+let char_is_whitespace = function
+  | ' ' | '\t' | '\r' | '\n' -> true
+  | _ -> false
+
+let str_is_whitespace (s : string) =
+  let rec loop i =
+    if i >= String.length s then true
+    else char_is_whitespace s.[i] && loop (i+1)
+  in
+  loop 0
+
+let elt_is_pcdata (e : expression) =
+  match e with
+  | { pexp_desc =
+        Pexp_apply (
+          { pexp_desc = Pexp_ident { txt = lid } },
+          [_, { pexp_desc = Pexp_constant (Pconst_string (s, None)) }]
+        ) }
+    when Longident.flatten lid = ["pcdata"] -> Some s
+  | _ -> None
+
+let elt_is_whitespace e =
+  match elt_is_pcdata e with
+  | Some s -> str_is_whitespace s
+  | None -> false
+
+let str_trim_beginning, str_trim_end =
+  let rec skip s i finished next =
+    if finished i || not (char_is_whitespace s.[i]) then i
+    else skip s (next i) finished next
+  in
+  (fun s ->
+     let n = String.length s in
+     let j = skip s 0 (fun i -> i >= n) succ in
+     String.sub s j (String.length s - j)),
+  (fun s ->
+     let n = String.length s in
+     let j = skip s (n - 1) (fun i -> i < 0) pred in
+     String.sub s 0 (j+1))
+
+let collapse_whitespace s =
+  let b = Buffer.create (String.length s) in
+  let in_whitespace = ref false in
+  for i = 0 to String.length s - 1 do
+    if char_is_whitespace s.[i] then (
+      if !in_whitespace then ()
+      else (
+        in_whitespace := true;
+        Buffer.add_char b ' '
+      )
+    ) else (
+      Buffer.add_char b s.[i];
+      in_whitespace := false;
+    )
+  done;
+  Buffer.contents b
+
+let split_last l =
+  let lr = List.rev l in
+  (List.rev (List.tl lr), List.hd lr)
+
+let pcdata_with ~f ~s e =
+  match e with
+  | { pexp_desc = Pexp_apply (fe, [lbl, _]) } ->
+    { e with pexp_desc = Pexp_apply (f fe, [lbl, Exp.constant (Const.string s)]) }
+  | _ -> failwith "pcdata_with"
+
+let pcdata_map ~default ~f e =
+  match elt_is_pcdata e with
+  | Some s -> pcdata_with ~f:default ~s:(f s) e
+  | None -> default e
+
+let dest_cons e =
+  match e with
+  | { pexp_desc =
+        Pexp_construct ({ txt = lid },
+                        Some e') }
+    when Longident.flatten lid = ["::"] ->
+    begin match e' with
+      | { pexp_desc = Pexp_tuple [e1; e2] } -> Some (e1, e2)
+      | _ -> None
+    end
+  | _ -> None
+
+let is_nil e =
+  match e with
+  | { pexp_desc = Pexp_construct ({ txt = lid }, None) }
+    when Longident.flatten lid = ["[]"] -> true
+  | _ -> false
+
+let rec dest_list e =
+  if is_nil e then Some []
+  else
+    match dest_cons e with
+    | Some (e1, e2) ->
+      begin match dest_list e2 with
+        | Some l -> Some (e1 :: l)
+        | None -> None
+      end
+    | None -> None
+
+let cleanup_whitespace_mapper =
+  let rec expr mapper e =
+    let (!!) = expr mapper in
+    match e with
+    | { pexp_desc =
+          Pexp_apply ({ pexp_desc = Pexp_ident { txt = lid } }, _) }
+      when Longident.flatten lid = ["pre"] ->
+      e
+
+    | { pexp_desc = Pexp_apply (f, args) } ->
+      let (front, (lbln, argn)) = split_last args in
+      let front' = List.map (fun (lbl, arg) -> (lbl, !!arg)) front in
+      let argn' =
+        begin match dest_list argn with
+          | Some l ->
+            let l = List.map (pcdata_map ~default:(!!) ~f:collapse_whitespace) l in
+            begin match l with
+              | [] -> argn
+              | [e'] ->
+                let e'' =
+                  pcdata_map
+                    ~default:(!!)
+                    ~f:(fun s -> str_trim_beginning @@ str_trim_end s)
+                    e'
+                in
+                Ppx_common.list Location.none [e'']
+              | e1' :: es' ->
+                let es'_middle, en' = split_last es' in
+                let ret =
+                  (if elt_is_whitespace e1' then []
+                   else [pcdata_map ~default:(!!) ~f:str_trim_beginning e1'])
+                  @ es'_middle @
+                  (if elt_is_whitespace en' then []
+                   else [pcdata_map ~default:(!!) ~f:str_trim_end en'])
+                in
+                Ppx_common.list Location.none ret
+            end
+
+          | None -> !!argn
+        end
+      in
+      { e with pexp_desc = Pexp_apply (!!f, front' @ [lbln, argn']) }
+
+    | _ -> default_mapper.expr mapper e
+  in
+  { default_mapper with expr }
+
+let cleanup_whitespace : expression -> expression =
+  cleanup_whitespace_mapper.expr cleanup_whitespace_mapper

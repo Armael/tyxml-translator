@@ -10,6 +10,7 @@ let process (s : string) =
       Translator.ocaml_of_html lang s
       |> Translator.unfold_wrap lang Translator.nowrap
       |> Translator.unqualify lang
+      |> Translator.cleanup_whitespace
     in
     let b = Buffer.create 37 in
     let fmt = Format.formatter_of_buffer b in
