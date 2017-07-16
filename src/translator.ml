@@ -154,12 +154,38 @@ let unqualify (lang : Ppx_common.lang) : expression -> expression =
 
 (* Best-effort cleanup of non-significant whitespace.
 
-   when not in a <pre>:
-   - if first child is a text node, trim whitespace at the beginning, or remove
+   Motivation: when the user inputs well-indented HTML, the resulting HTML and
+   OCaml ASTs contain a bunch of whitespace-only text nodes. These text nodes
+   clutter the output, and in most cases, they will not be significant at
+   rendering time.
+
+   This gives the motivation for some rewriting pass which cleans up whitespace
+   "with no semantic meaning".
+
+   However, rules for deciding of the semantics of white-space (at rendering
+   time) are quite intricate (see e.g.
+   https://medium.com/@patrickbrosset/when-does-white-space-matter-in-html-b90e8a7cdd33
+   for an introduction) — and are ultimately determined not only by the HTML,
+   but also by the CSS. For example, CSS can make all whitespace significant,
+   using the [white-space] property.
+
+   Therefore, we implement a "best-effort" cleanup pass. "best-effort" means
+   that we do not guarantee formal correctness properties for its output. We
+   keep the implementation simple, and hope that in 90% of cases it matches the
+   user expectations, i.e. produces an output semantically equivalent to the
+   input.
+
+   It also means that this pass should be optional.
+
+   The code below implements the following, simple-minded transformation:
+
+   When not in a <pre>:
+   - merge consecutive whitespace characters into a single ' ' for all children
+     text nodes;
+   - if the first child is a text node, trim whitespace at the beginning, or remove
      it if it is only whitespace
-   - symmetrically for the last child
-   - for other text nodes children, merge consecutive whitespace characters into
-     a single ' '
+   - symmetrically for the last child, trim whitespace at its end, or remove it
+     if only whitespace
 *)
 
 let char_is_whitespace = function
@@ -172,21 +198,6 @@ let str_is_whitespace (s : string) =
     else char_is_whitespace s.[i] && loop (i+1)
   in
   loop 0
-
-let elt_is_pcdata (e : expression) =
-  match e with
-  | { pexp_desc =
-        Pexp_apply (
-          { pexp_desc = Pexp_ident { txt = lid } },
-          [_, { pexp_desc = Pexp_constant (Pconst_string (s, None)) }]
-        ) }
-    when Longident.flatten lid = ["pcdata"] -> Some s
-  | _ -> None
-
-let elt_is_whitespace e =
-  match elt_is_pcdata e with
-  | Some s -> str_is_whitespace s
-  | None -> false
 
 let str_trim_beginning, str_trim_end =
   let rec skip s i finished next =
@@ -219,9 +230,20 @@ let collapse_whitespace s =
   done;
   Buffer.contents b
 
-let split_last l =
-  let lr = List.rev l in
-  (List.rev (List.tl lr), List.hd lr)
+let elt_is_pcdata (e : expression) =
+  match e with
+  | { pexp_desc =
+        Pexp_apply (
+          { pexp_desc = Pexp_ident { txt = lid } },
+          [_, { pexp_desc = Pexp_constant (Pconst_string (s, None)) }]
+        ) }
+    when Longident.flatten lid = ["pcdata"] -> Some s
+  | _ -> None
+
+let elt_is_whitespace e =
+  match elt_is_pcdata e with
+  | Some s -> str_is_whitespace s
+  | None -> false
 
 let pcdata_with ~f ~s e =
   match e with
@@ -233,6 +255,10 @@ let pcdata_map ~default ~f e =
   match elt_is_pcdata e with
   | Some s -> pcdata_with ~f:default ~s:(f s) e
   | None -> default e
+
+let split_last l =
+  let lr = List.rev l in
+  (List.rev (List.tl lr), List.hd lr)
 
 let dest_cons e =
   match e with
