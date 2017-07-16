@@ -2,7 +2,9 @@ B _build/src
 PKG compiler-libs
 PKG tyxml.ppx.internal
 
-PKG js_of_ocaml.tyxml
-PKG js_of_ocaml.ppx
+PKG js_of_ocaml
+PKG js_of_ocaml-tyxml
+PKG js_of_ocaml-ppx
+PKG js_of_ocaml-lwt
 PKG react
 PKG lwt
