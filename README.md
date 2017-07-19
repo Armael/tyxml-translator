@@ -28,13 +28,12 @@ utop # [%html {|<h1 id="foo">contents</h1>|}];;
 
 The present application uses Tyxml's PPX to do all the heavy lifting, and then
 cleans up the output, and makes it available through a CLI tool and a web app.
-The goal is to produce OCaml code that corresponds to what a human would write,
-in order to produce the given HTML.
+The goal is to produce OCaml code that corresponds to what a human would write.
 
-Therefore, the intended use-case for this application is to be used as an
-example generator or helper when writing UI components using Tyxml's
-combinators. Of course, it is possible to directly use the Tyxml's PPX, but at
-the moment it is not as flexible as the combinators.
+The intended use-case for this application is to be used as an example generator
+or helper when writing UI components using Tyxml's combinators. Of course, it is
+possible to directly use the Tyxml's PPX, but at the moment it is not as
+flexible as the combinators.
 
 In short, this app should be a nice way of answering the occasional questions:
 "argh, how do I write \<this HTML thing\> in Tyxml already?".
