@@ -18,7 +18,7 @@ let process (s : string) =
 
     Format.fprintf fmt
       "%a@.%!"
-      Pprintast.expression expr;
+      Mypprintast.expression expr;
     Buffer.contents b
 
   with Location.Error e ->
