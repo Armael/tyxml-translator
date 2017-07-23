@@ -1239,10 +1239,23 @@ hr {
 /* == Translate input part module */
 /* ----------------------------------------------------------- */
 .translateOutput__code pre:not(:empty) {
+  overflow-x: auto;
   padding: 2rem;
   border-radius: .3rem;
   background-color: #ededed;
-  overflow-x: auto;
+  font-size: 1.4rem;
+  font-family: monospace;
+}
+/* Hidden block to calculate output's width */
+.translateOutput__hiddenBlock {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  visibility: hidden;
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  font-family: monospace;
 }
 /* ----------------------------------------------------------- */
 /* == rwd -> large */
