@@ -43,7 +43,7 @@ In short, this app should be a nice way of answering the occasional questions:
 ```
 opam pin add --dev-repo -n tyxml
 opam pin add --dev-repo -n tyxml-ppx
-opam reinstall tyxml tyxml-ppx
+opam install tyxml.dev tyxml-ppx.dev
 opam install ocamlbuild js_of_ocaml js_of_ocaml-tyxml js_of_ocaml-ocamlbuild
 make
 ```
