@@ -49,3 +49,9 @@ make
 ```
 
 This should build the CLI program and the .js file for the web app.
+
+### Hacking the webapp design (html/css)
+
+1. Install frontend dependencies (gulp task manager, less transpiler, css auto-autoprefixer) with npm: `npm install`
+2. Launch OCaml build and CSS compilation with: `gulp`
+3. You can run a local server (browsersync) that monitor changes and build OCaml or recompile CSS automatically with `gulp watch`
