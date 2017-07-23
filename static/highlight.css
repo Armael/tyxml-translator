@@ -1,0 +1,5 @@
+.keyword { font-weight: bold; }
+.ident { color: #333333; }
+.modident { color: red; }
+.string { color: brown; }
+.char { color: brown; }

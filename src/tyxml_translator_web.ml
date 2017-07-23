@@ -1,8 +1,26 @@
-open Tyxml_js
-open Tyxml_js.Html5
 open Lwt
 
 let lang = Ppx_common.Html
+
+let setup_format_tags fmt =
+  let handle_tag f tag =
+    match tag with
+    | "keyword" | "ident" | "modident" | "string" | "char" ->
+      f tag
+    | _ -> ""
+  in
+  let ftf = {
+    (Format.get_formatter_tag_functions ()) with
+    Format.mark_open_tag = handle_tag (fun tag ->
+      Printf.sprintf "<span class=\"%s\">" tag
+    );
+    Format.mark_close_tag = handle_tag (fun _ ->
+      "</span>"
+    );
+  } in
+
+  Format.pp_set_formatter_tag_functions fmt ftf;
+  Format.pp_set_tags fmt true
 
 let process (s : string) =
   try
@@ -16,6 +34,7 @@ let process (s : string) =
     let fmt = Format.formatter_of_buffer b in
     Format.pp_set_margin fmt 78;
 
+    setup_format_tags fmt;
     Format.fprintf fmt
       "%a@.%!"
       Mypprintast.expression expr;
@@ -23,9 +42,6 @@ let process (s : string) =
 
   with Location.Error e ->
     e.Location.msg
-
-let output_text, set_output_text = React.S.create ""
-let output_data = R.Html5.pcdata output_text
 
 let optget o = Js.Opt.get o (fun _ -> failwith "oops")
 
@@ -35,17 +51,12 @@ let () =
     |> Dom_html.CoerceTo.textarea |> optget
   in
   let output_elt = Dom_html.getElementById "output" in
-  Lwt.async (fun _ ->
-    Lwt_js_events.domContentLoaded () >>= fun _ ->
-    output_elt##appendChild (To_dom.of_node output_data) |> ignore;
-    return ()
-  );
 
   Lwt.async (fun _ ->
     Lwt_js_events.limited_loop ~elapsed_time:0.5
       Lwt_js_events.input input_box (fun _ _ ->
         let input_text = Js.to_string input_box##.value in
-        set_output_text (process input_text);
+        output_elt##.innerHTML := Js.string (process input_text);
         return ()
       )
   )
