@@ -24,13 +24,8 @@ let process (s : string) =
   with Location.Error e ->
     e.Location.msg
 
-let output_text, set_output_text = React.S.create []
-
-let output_pre =
-  R.Html5.pre (
-    React.S.map (List.map pcdata) output_text
-    |> ReactiveData.RList.from_signal
-  )
+let output_text, set_output_text = React.S.create ""
+let output_data = R.Html5.pcdata output_text
 
 let optget o = Js.Opt.get o (fun _ -> failwith "oops")
 
@@ -39,10 +34,10 @@ let () =
     Dom_html.getElementById "input"
     |> Dom_html.CoerceTo.textarea |> optget
   in
-  let output_div = Dom_html.getElementById "output" in
+  let output_elt = Dom_html.getElementById "output" in
   Lwt.async (fun _ ->
     Lwt_js_events.domContentLoaded () >>= fun _ ->
-    output_div##appendChild (To_dom.of_node output_pre) |> ignore;
+    output_elt##appendChild (To_dom.of_node output_data) |> ignore;
     return ()
   );
 
@@ -50,7 +45,7 @@ let () =
     Lwt_js_events.limited_loop ~elapsed_time:0.5
       Lwt_js_events.input input_box (fun _ _ ->
         let input_text = Js.to_string input_box##.value in
-        set_output_text [process input_text];
+        set_output_text (process input_text);
         return ()
       )
   )
