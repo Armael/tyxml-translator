@@ -433,19 +433,19 @@ and label_exp ctxt f (l,opt,p) =
       begin match p.ppat_desc with
       | Ppat_var {txt;_} when txt = rest ->
           (match opt with
-           | Some o -> pp f "?(%s=@;%a)@;" rest  (expression ctxt) o
-           | None -> pp f "?%s@ " rest)
+           | Some o -> pp f "?(@{<label-arg>%s@}=@;%a)@;" rest  (expression ctxt) o
+           | None -> pp f "@{<label-arg>?%s@}@ " rest)
       | _ ->
           (match opt with
            | Some o ->
-               pp f "?%s:(%a=@;%a)@;"
+               pp f "@{<label-arg>?%s@}:(@{<label-arg>%a@}=@;%a)@;"
                  rest (pattern1 ctxt) p (expression ctxt) o
-           | None -> pp f "?%s:%a@;" rest (simple_pattern ctxt) p)
+           | None -> pp f "@{<label-arg>?%s@}:%a@;" rest (simple_pattern ctxt) p)
       end
   | Labelled l -> match p.ppat_desc with
     | Ppat_var {txt;_} when txt = l ->
-        pp f "~%s@;" l
-    | _ ->  pp f "~%s:%a@;" l (simple_pattern ctxt) p
+        pp f "@{<label-arg>~%s@}@;" l
+    | _ ->  pp f "@{<label-arg>~%s@}:%a@;" l (simple_pattern ctxt) p
 
 and sugar_expr ctxt f e =
   if e.pexp_attributes <> [] then false
@@ -1396,14 +1396,14 @@ and label_x_expression_param ctxt f (l,e) =
   | Nolabel  -> expression2 ctxt f e (* level 2*)
   | Optional str ->
       if Some str = simple_name then
-        pp f "?%s" str
+        pp f "@{<label-arg>?%s@}" str
       else
-        pp f "?%s:%a" str (simple_expr ctxt) e
+        pp f "@{<label-arg>?%s@}:%a" str (simple_expr ctxt) e
   | Labelled lbl ->
       if Some lbl = simple_name then
-        pp f "~%s" lbl
+        pp f "@{<label-arg>~%s@}" lbl
       else
-        pp f "~%s:%a" lbl (simple_expr ctxt) e
+        pp f "@{<label-arg>~%s@}:%a" lbl (simple_expr ctxt) e
 
 and directive_argument f x =
   match x with

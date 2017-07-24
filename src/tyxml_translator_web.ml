@@ -5,7 +5,7 @@ let lang = Ppx_common.Html
 let setup_format_tags fmt =
   let handle_tag f tag =
     match tag with
-    | "keyword" | "ident" | "modident" | "string" | "char" ->
+    | "keyword" | "ident" | "modident" | "string" | "char" | "label-arg" ->
       f tag
     | _ -> ""
   in
