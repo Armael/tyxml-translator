@@ -1,8 +1,21 @@
 ## Tyxml-translator: a sugar-coated translation from HTML to Tyxml combinators
 
-Web app: https://armael.github.io/tyxml-translator
+Web app URL: https://armael.github.io/tyxml-translator
 
-### Rationale
+[Tyxml](https://github.com/ocsigen/tyxml) is an OCaml library that allows
+building HTML documents using a set of combinators (i.e. OCaml functions). It
+ensures that the HTML produced is always valid, by relying on the OCaml
+typechecker.
+
+Tyxml's combinators closely match the names of HTML elements, but in some cases,
+it can be confusing to know how to express a particular HTML construct using
+these combinators.
+
+This simple webapp is designed as a documentation tool or examples generator for
+Tyxml's combinators: given a piece of HTML, it returns the corresponding OCaml
+expression that uses Tyxml and produces the given HTML.
+
+### Some more details
 
 Tyxml-translator implements a thin layer of sugar-coating on top of Tyxml's PPX.
 Tyxml's PPX is able to parse HTML, and produce an equivalent OCaml expression
