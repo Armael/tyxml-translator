@@ -3,3 +3,4 @@
 .modident { color: red; }
 .string { color: brown; }
 .char { color: brown; }
+.label-arg { font-style: italic; }
