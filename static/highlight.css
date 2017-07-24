@@ -1,5 +1,5 @@
 .keyword { font-weight: bold; }
-.ident { color: #333333; }
+.ident { color: #333333; font-weight: bold; }
 .modident { color: red; }
 .string { color: brown; }
 .char { color: brown; }
