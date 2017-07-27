@@ -21,14 +21,18 @@ let setup_format_tags fmt =
   Format.pp_set_tags fmt true
 
 let process lang cleanup_whitespace (s : string) =
-  try
-    Translator.ocaml_of_html lang s
-    |> Translator.unfold_wrap lang Translator.nowrap
-    |> Translator.unqualify lang
-    |> (fun x -> if cleanup_whitespace then Translator.cleanup_whitespace x else x)
-    |> fun s -> `Ok s
-  with Location.Error e ->
-    `Error e.Location.msg
+  (* Special case for the empty input; otherwise the ppx produces "[]" as
+     output, which is valid, but a bit surpising. *)
+  if s = "" then `Empty
+  else
+    try
+      Translator.ocaml_of_html lang s
+      |> Translator.unfold_wrap lang Translator.nowrap
+      |> Translator.unqualify lang
+      |> (fun x -> if cleanup_whitespace then Translator.cleanup_whitespace x else x)
+      |> fun s -> `Ok s
+    with Location.Error e ->
+      `Error e.Location.msg
 
 let pp_result width res =
   let b = Buffer.create 37 in
@@ -44,6 +48,8 @@ let pp_result width res =
   | `Error s ->
     Format.fprintf fmt
       "%s@.%!" s
+  | `Empty ->
+    ()
   end;
   Buffer.contents b
 
