@@ -930,6 +930,133 @@ input[type="checkbox"] {
   color: #fff;
 }
 /* ----------------------------------------------------------- */
+/* == Radiobox module */
+/* ----------------------------------------------------------- */
+.radiobox {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .2rem;
+}
+.radiobox__input {
+  position: fixed;
+  top: -9999px;
+  left: -999px;
+}
+input + label.radiobox__label {
+  margin: 0;
+  padding: .7rem 1rem;
+  border-radius: .2rem;
+  color: #2590d6;
+  font-size: 1.5rem;
+}
+/* Checked state
+-------------------------------------------------------------- */
+.radiobox__input:checked + .radiobox__label {
+  background-color: #2590d6;
+  color: #fcfcfc;
+}
+/* Focus state
+-------------------------------------------------------------- */
+.radiobox__input:focus + .radiobox__label::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border: 0.1rem solid #2590d6;
+  border-radius: .2rem;
+  content: "";
+}
+/* ----------------------------------------------------------- */
+/* == Switch module */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* == Radiobox module */
+/* ----------------------------------------------------------- */
+.switch {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: .5rem;
+  padding-right: 1.5rem;
+}
+.switch__input {
+  position: fixed;
+  top: -9999px;
+  left: -999px;
+}
+input + label.switch__label {
+  margin: 0;
+  padding: 0;
+  padding-left: 4.5rem;
+  border-radius: .2rem;
+  color: #5b5b5b;
+  font-size: 1.5rem;
+}
+.switch__label::before {
+  position: absolute;
+  top: 50%;
+  left: .5rem;
+  width: 4rem;
+  height: 2.5rem;
+  border-radius: 4.2rem;
+  background-color: #8f8f8f;
+  content: "";
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transform: background .2s;
+  transform: background .2s;
+}
+.switch__label::after {
+  position: absolute;
+  top: 50%;
+  left: .8rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 4.2rem;
+  background-color: #fff;
+  content: "";
+  -webkit-transition: .2s all;
+  transition: .2s all;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+/* Checked state
+-------------------------------------------------------------- */
+.switch__input:checked + .switch__label {
+  color: #2590d6;
+}
+.switch__input:checked + .switch__label::before {
+  background-color: #2590d6;
+}
+.switch__input:checked + .switch__label::after {
+  left: 2.3rem;
+  background-color: #fff;
+}
+/* Focus state
+-------------------------------------------------------------- */
+.switch__input:focus + label .switch__labelContent::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border: .1rem solid #5b5b5b;
+  border-radius: 4.2rem;
+  content: "";
+}
+.switch__input:focus:checked + label .switch__labelContent::after {
+  border: 0.1rem solid #2590d6;
+}
+/* ----------------------------------------------------------- */
 /* == custom fonts */
 /* ----------------------------------------------------------- */
 /* ----------------------------------------------------------- */
@@ -1129,9 +1256,19 @@ hr {
   flex-grow: 1;
   width: 50%;
 }
-.main__splitItem:first-child {
-  margin-right: 1.5rem;
-  border-right: .1rem solid #e3e3e3;
+.main__splitHead {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 1.2rem;
 }
 /* ----------------------------------------------------------- */
 /* == header */
@@ -1238,10 +1375,25 @@ hr {
 /* ----------------------------------------------------------- */
 /* == Translate input part module */
 /* ----------------------------------------------------------- */
+.translateOutput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  padding-left: 1.5rem;
+  border-left: .1rem solid #e3e3e3;
+}
 .translateOutput__code:not(:empty) {
   overflow-x: auto;
-  padding: 2rem;
-  border-radius: .3rem;
   font-size: 1.4rem;
   font-family: monospace;
 }
@@ -1275,15 +1427,13 @@ hr {
   .main__splitItem {
     width: 100%;
   }
-  .main__splitItem:first-child {
-    padding-bottom: 1.5rem;
-    border-right: none;
-  }
   .translateInput__input {
     width: 100%;
   }
-  .translateOutput__code:not(:empty) {
-    padding: 1rem;
+  .translateOutput {
+    padding-bottom: 1.5rem;
+    padding-left: 0;
+    border-left: none;
   }
 }
 /* ----------------------------------------------------------- */
@@ -1317,8 +1467,7 @@ hr {
   }
   /* Input / Output layout
   -------------------------------------------------------------- */
-  .translateInput__input,
-  .translateOutput__code {
+  .translateInput__input {
     min-height: 30rem;
   }
   /* Footer

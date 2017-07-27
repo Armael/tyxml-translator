@@ -28,10 +28,46 @@
             <div class="main__container container">
                 <div class="main__grid">
                     <div class="main__splitItem">
+                        <div class="main__splitHead">
+                            <div class="radiobox">
+                                <input class="radiobox__input" type="radio" name="input-language" id="input-html" checked/>
+                                <label class="radiobox__label" for="input-html">
+                                    HTML
+                                </label>
+                                <input class="radiobox__input" type="radio" name="input-language" id="input-svg"/>
+                                <label class="radiobox__label" for="input-svg">
+                                    SVG
+                                </label>
+                            </div>
+                        </div>
                         <textarea class="translateInput__input" id="input" autofocus placeholder="Write your code here…"></textarea>
                     </div>
                     <div class="main__splitItem" id="output-panel">
-                        <pre class="translateOutput__code" id="output"></pre>
+                        <div class="main__splitHead">
+                            <!-- Work in progress
+                            <div class="radiobox">
+                                <input class="radiobox__input" type="radio" name="output-language" id="output-tyxml" checked/>
+                                <label class="radiobox__label" for="output-tyxml">
+                                    Tyxml
+                                </label>
+                                <input class="radiobox__input" type="radio" name="output-language" id="output-reason"/>
+                                <label class="radiobox__label" for="output-reason">
+                                    Reason
+                                </label>
+                            </div> -->
+                            <div class="switch">
+                                <input class="switch__input" type="checkbox" name="output-whitspace" id="output-whitespace" checked/>
+                                <label class="switch__label" for="output-whitespace">
+                                    <div class="switch__labelContent">
+                                        Best-effort whitespace cleanup
+                                    </div>
+                                </label>
+                            </div>
+                            <!-- <button class="btn">Copy</button> -->
+                        </div>
+                        <div class="translateOutput">
+                            <pre class="translateOutput__code" id="output"></pre>
+                        </div>
                     </div>
                 </div>
             </div>
