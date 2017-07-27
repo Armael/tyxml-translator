@@ -63,8 +63,8 @@ let () =
   let output_panel = Dom_html.getElementById "output-panel" in
   let output_elt = Dom_html.getElementById "output" in
   let one_space_span = Dom_html.getElementById "one-space-hidden-span" in
-  let input_is_html = Dom_html.(getElementById "input-html" |> CoerceTo.input |> optget) in
-  let input_is_svg = Dom_html.(getElementById "input-svg" |> CoerceTo.input |> optget) in
+  (* let input_is_html = Dom_html.(getElementById "input-html" |> CoerceTo.input |> optget) in *)
+  (* let input_is_svg = Dom_html.(getElementById "input-svg" |> CoerceTo.input |> optget) in *)
   let input_cleanup_whitespace = Dom_html.(getElementById "output-whitespace" |> CoerceTo.input |> optget) in
 
   let output_width () =
@@ -73,10 +73,10 @@ let () =
     min (output_panel_width / one_space_width - 3) 80
   in
 
-  let selected_lang () =
-    if input_is_svg##.checked |> Js.to_bool then Ppx_common.Svg
-    else Ppx_common.Html
-  in
+  (* let selected_lang () = *)
+  (*   if input_is_svg##.checked |> Js.to_bool then Ppx_common.Svg *)
+  (*   else Ppx_common.Html *)
+  (* in *)
 
   let do_cleanup_whitespace () =
     input_cleanup_whitespace##.checked |> Js.to_bool
@@ -92,9 +92,9 @@ let () =
   in
 
   let width = of_event resized output_width () in
-  let lang = of_event lang_changed selected_lang () in
+  (* let lang = of_event lang_changed selected_lang () in *)
   let cleanup_whitespace = of_event cleanup_whitespace_changed do_cleanup_whitespace () in
-  let output = React.S.l3 process lang cleanup_whitespace input in
+  let output = React.S.l2 (process Ppx_common.Html) cleanup_whitespace input in
 
   let _display_output = React.S.l2 (fun width out ->
     output_elt##.innerHTML := Js.string (pp_result width out)
@@ -112,12 +112,12 @@ let () =
       (fun _ _ -> Lwt.return (trigger_resized ()))
   );
 
-  Lwt.async (fun _ ->
-    Lwt_js_events.seq_loop
-      (fun ?use_capture (t1, t2) -> Lwt_js_events.(click t1 <?> click t2))
-      (input_is_html, input_is_svg)
-      (fun _ _ -> Lwt.return (trigger_lang_changed ()))
-  );
+  (* Lwt.async (fun _ -> *)
+  (*   Lwt_js_events.seq_loop *)
+  (*     (fun ?use_capture (t1, t2) -> Lwt_js_events.(click t1 <?> click t2)) *)
+  (*     (input_is_html, input_is_svg) *)
+  (*     (fun _ _ -> Lwt.return (trigger_lang_changed ())) *)
+  (* ); *)
 
   Lwt.async (fun _ ->
     Lwt_js_events.seq_loop Lwt_js_events.click input_cleanup_whitespace
