@@ -735,6 +735,11 @@ input[type="checkbox"] {
   background-color: #2590d6;
   color: #fff;
 }
+.btn:focus {
+  outline-width: 0;
+  -webkit-box-shadow: 0 0 .02em .2rem #4d90fe;
+  box-shadow: 0 0 .02em .2rem #4d90fe;
+}
 /* colors
 -------------------------------------------------------------- */
 .btn--primary,
@@ -966,8 +971,10 @@ input + label.radiobox__label {
   z-index: -1;
   width: 100%;
   height: 100%;
-  border: 0.1rem solid #2590d6;
+  outline-width: 0;
   border-radius: .2rem;
+  -webkit-box-shadow: 0 0 .02em .2rem #4d90fe;
+  box-shadow: 0 0 .02em .2rem #4d90fe;
   content: "";
 }
 /* ----------------------------------------------------------- */
@@ -1049,12 +1056,11 @@ input + label.switch__label {
   z-index: -1;
   width: 100%;
   height: 100%;
-  border: .1rem solid #5b5b5b;
+  outline-width: 0;
   border-radius: 4.2rem;
+  -webkit-box-shadow: 0 0 .02em .2rem #4d90fe;
+  box-shadow: 0 0 .02em .2rem #4d90fe;
   content: "";
-}
-.switch__input:focus:checked + label .switch__labelContent::after {
-  border: 0.1rem solid #2590d6;
 }
 /* ----------------------------------------------------------- */
 /* == custom fonts */
