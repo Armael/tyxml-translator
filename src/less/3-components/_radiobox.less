@@ -1,0 +1,46 @@
+/* ----------------------------------------------------------- */
+/* == Radiobox module */
+/* ----------------------------------------------------------- */
+
+.radiobox {
+  position: relative;
+  display: flex;
+  padding: .2rem;
+}
+
+.radiobox__input {
+  position: fixed;
+  top: -9999px;
+  left: -999px;
+}
+
+input + label.radiobox__label {
+  margin: 0;
+  padding: .7rem 1rem;
+  border-radius: .2rem;
+  color: @color-primary;
+  font-size: 1.5rem;
+}
+
+/* Checked state
+-------------------------------------------------------------- */
+
+.radiobox__input:checked + .radiobox__label {
+  background-color: @color-primary;
+  color: @color-light-text;
+}
+
+/* Focus state
+-------------------------------------------------------------- */
+
+.radiobox__input:focus + .radiobox__label::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border: .1rem solid @color-primary;
+  border-radius: .2rem;
+  content: "";
+}

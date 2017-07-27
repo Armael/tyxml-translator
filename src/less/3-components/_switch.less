@@ -1,0 +1,77 @@
+/* ----------------------------------------------------------- */
+/* == Switch module */
+/* ----------------------------------------------------------- */
+
+/* ----------------------------------------------------------- */
+/* == Radiobox module */
+/* ----------------------------------------------------------- */
+
+.switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: .5rem;
+  padding-right: 1.5rem;
+}
+
+.switch__input {
+  position: fixed;
+  top: -9999px;
+  left: -999px;
+}
+
+input + label.switch__label {
+  margin: 0;
+  padding: 0;
+  padding-left: 4.5rem;
+  border-radius: .2rem;
+  color: @color-primary;
+  font-size: 1.5rem;
+}
+
+.switch__label::before {
+  position: absolute;
+  top: 50%;
+  left: .5rem;
+  width: 4rem;
+  height: 2.5rem;
+  border-radius: 4.2rem;
+  background-color: @color-primary;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.switch__label::after {
+  position: absolute;
+  top: 50%;
+  left: .8rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 4.2rem;
+  background-color: #fff;
+  content: "";
+  transition: .2s all;
+  transform: translateY(-50%);
+}
+
+/* Checked state
+-------------------------------------------------------------- */
+
+.switch__input:checked + .switch__label::after {
+  left: 2.3rem;
+}
+
+/* Focus state
+-------------------------------------------------------------- */
+
+.switch__input:focus + label .switch__labelContent::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border: .1rem solid @color-primary;
+  border-radius: 4.2rem;
+  content: "";
+}

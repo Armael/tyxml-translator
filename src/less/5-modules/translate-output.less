@@ -2,10 +2,17 @@
 /* == Translate input part module */
 /* ----------------------------------------------------------- */
 
+.translateOutput {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+  padding-left: 1.5rem;
+  border-left: .1rem solid #e3e3e3;
+}
+
 .translateOutput__code:not(:empty) {
   overflow-x: auto;
-  padding: 2rem;
-  border-radius: .3rem;
   font-size: 1.4rem;
   font-family: monospace;
 }
