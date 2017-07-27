@@ -87,13 +87,13 @@ let () =
   let lang_changed, trigger_lang_changed = React.E.create () in
   let cleanup_whitespace_changed, trigger_cleanup_whitespace_changed = React.E.create () in
 
-  let of_event f init e =
+  let of_event e f init =
     React.E.map f e |> React.S.hold (f init)
   in
 
-  let width = of_event output_width () resized in
-  let lang = of_event selected_lang () lang_changed in
-  let cleanup_whitespace = of_event do_cleanup_whitespace () cleanup_whitespace_changed in
+  let width = of_event resized output_width () in
+  let lang = of_event lang_changed selected_lang () in
+  let cleanup_whitespace = of_event cleanup_whitespace_changed do_cleanup_whitespace () in
   let output = React.S.l3 process lang cleanup_whitespace input in
 
   let _display_output = React.S.l2 (fun width out ->
