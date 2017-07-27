@@ -57,7 +57,7 @@ In short, this app should be a nice way of answering the occasional questions:
 opam pin add --dev-repo -n tyxml
 opam pin add --dev-repo -n tyxml-ppx
 opam install tyxml.dev tyxml-ppx.dev
-opam install ocamlbuild js_of_ocaml js_of_ocaml-lwt js_of_ocaml-ppx js_of_ocaml-ocamlbuild
+opam install ocamlbuild js_of_ocaml js_of_ocaml-lwt js_of_ocaml-ppx js_of_ocaml-ocamlbuild react
 make
 ```
 
